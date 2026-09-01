@@ -1,5 +1,7 @@
 package com.project.Ecommerce.Controller;
 import com.project.Ecommerce.Model.Category;
+import com.project.Ecommerce.Payload.CategoryDTO;
+import com.project.Ecommerce.Payload.CategoryResponse;
 import com.project.Ecommerce.Service.CategoryInterface;
 import com.project.Ecommerce.Service.Categoryserviceimpl;
 import jakarta.validation.Valid;
@@ -20,15 +22,15 @@ public class CategoryController {
      }
 
      @GetMapping("/api/public/categories")
-     public ResponseEntity<List<Category>> getallCategory()
+     public ResponseEntity<CategoryResponse> getallCategory()
      {
-          List<Category> categories= catoryInterface.getallCategories();
+          CategoryResponse categories= catoryInterface.getallCategories();
           return new ResponseEntity<>(categories,HttpStatus.OK);
      }
      @PostMapping("/api/public/categories")
-     public ResponseEntity<String> addCategories(@Valid @RequestBody Category category){
-          catoryInterface.createCategory(category);
-          return new ResponseEntity<>("Category Added Sucessfully",HttpStatus.CREATED);
+     public ResponseEntity<CategoryDTO> addCategories(@Valid @RequestBody CategoryDTO categoryDto){
+          CategoryDTO saveCategorydto=catoryInterface.createCategory(categoryDto);
+          return new ResponseEntity<>(saveCategorydto,HttpStatus.CREATED);
      }
      @DeleteMapping("/api/admin/categories/{categoryId}")
      public ResponseEntity<String> deleteCatogories(@PathVariable Long categoryId){
