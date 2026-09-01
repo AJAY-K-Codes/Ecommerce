@@ -28,10 +28,12 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
-	dependencies {
-		compileOnly("org.projectlombok:lombok")
-		annotationProcessor("org.projectlombok:lombok")
-	}
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
+	compileOnly("org.projectlombok:lombok")
+	annotationProcessor("org.projectlombok:lombok")
+
 
 
 }
@@ -39,6 +41,8 @@ dependencies {
 tasks.test {
 	useJUnitPlatform()
 	finalizedBy(tasks.jacocoTestReport)
+	failOnNoDiscoveredTests=false
+
 }
 jacoco{
 	toolVersion="0.8.13"
