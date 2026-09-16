@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "order_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @SequenceGenerator(name="order_id",sequenceName = "order_sequence",allocationSize = 1)
     private Long categoryId;
     @NotBlank(message = "Category name needed")
