@@ -12,7 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.project.Ecommerce.Payload.CategoryResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +23,8 @@ public class Categoryserviceimpl implements CategoryInterface {
     private final CategoryRepository categoryRepository;
     @Autowired
     private  ModelMapper modelMapper;
+    @Autowired
+    private CategoryResponse categoryResponse;
 
     public Categoryserviceimpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
@@ -39,7 +41,6 @@ public class Categoryserviceimpl implements CategoryInterface {
          List<CategoryDTO> categoryDto =page.stream()
                  .map(category ->modelMapper.map(category,CategoryDTO.class))
                  .toList();
-         CategoryResponse categoryResponse = new CategoryResponse();
          categoryResponse.setContent(categoryDto);
          return categoryResponse;
 
@@ -65,13 +66,14 @@ public class Categoryserviceimpl implements CategoryInterface {
     }
 
     @Override
-    public Category UpdateCategories(Long categoryId,Category upcategory) {
+    public CategoryDTO UpdateCategories(Long categoryId,CategoryDTO upcategory) {
         Optional<Category> categories = categoryRepository.findById(categoryId);
         Category category = categories
                      .orElseThrow(() -> new ResourceNotFoundException("Category","CategoryId",categoryId));
 
-                             category.setCategoryName(upcategory.getCategoryName());
-        categoryRepository.save(category);
-        return category;
+        Category Updatecategory =modelMapper.map(upcategory,Category.class);
+        Updatecategory.setCategoryName((category.getCategoryName()));
+        categoryRepository.save(Updatecategory);
+        return upcategory;
     }
 }

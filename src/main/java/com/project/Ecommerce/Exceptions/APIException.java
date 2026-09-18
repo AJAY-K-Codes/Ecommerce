@@ -1,11 +1,10 @@
 package com.project.Ecommerce.Exceptions;
 
-import org.aspectj.bridge.IMessage;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class APIException extends RuntimeException{
 
-    public APIException() {
-    }
 
     public APIException(String Message) {
         super(Message);
