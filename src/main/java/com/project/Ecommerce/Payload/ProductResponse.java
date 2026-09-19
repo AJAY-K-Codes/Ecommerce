@@ -15,4 +15,6 @@ import java.util.List;
 public class ProductResponse {
 
     List<ProductDTO> content;
+
+    ProductDTO DtoContent;
 }
